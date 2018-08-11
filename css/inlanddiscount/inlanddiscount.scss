@@ -1,0 +1,195 @@
+$color: rgb(255, 149, 71);
+/* 头部 */
+
+// html {
+//     height: 100%;
+// }
+
+// body {
+//     /* 
+//     初始 body height:0 div
+//     浏览器做的事 body 一般就是整个屏幕的大小 
+//      */
+//     height: 100%;
+//     display: flex; // 主轴方向 水平
+//     // 上到下
+//     flex-direction: column; // 让子项的高度和父元素一样高 
+//     // 让子项的宽度度和父元素一样宽 
+//     // align-items: stretch;
+// }
+
+header {
+    width: 100%;
+    height: 45px;
+    background-color: $color;
+    display: flex;
+    z-index: 100;
+    a:nth-child(1) {
+        width: 50px;
+        height: 50%;
+        font-size: 20px;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        transform: scale(1, 2);
+        padding-top: 2px;
+    }
+    a:nth-child(2) {
+        flex: 1;
+        height: 100%;
+        font-size: 22px;
+        color: #fff;
+        text-align: center;
+        line-height: 45px;
+    }
+    a:nth-child(3) {
+        width: 50px;
+        height: 100%;
+        padding: 10px;
+    }
+}
+
+/* 商品区 */
+
+.product {
+    width: 100%;
+    ul { 
+        width: 100%;
+        max-width: 880px;
+        margin:0 auto;
+        height: 100%;
+        padding: 0 10px;
+        overflow: hidden;
+        li {
+            width: 50%;
+            float: left;
+            margin-top: 10px;
+            a {
+                width: 100%;
+                margin-top: 10px;
+                font-size: 14px;
+            }
+            a:nth-child(1) {
+                margin: 0 auto;
+                width: 150px;
+                height: 150px;
+            }
+            a:nth-child(3) {
+                color: $color;
+            }
+            a:nth-child(4) {
+                color: #666;
+            }
+        }
+        li:nth-child(odd) {
+            clear: both;
+        }
+    }
+    .progress {
+        width: 100%;
+        font-size: 14px;
+        height: 30px;
+        line-height: 30px;
+        background-color: #ededed;
+        margin-top: 10px;
+        a {
+            display: inline-block;
+            width: 60px;
+            text-align: center;
+        }
+    }
+}
+
+.yanchi {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    background: url("../../images/2345_image_file_copy_8.jpg");
+    background-size: 100% 100%;
+    span {
+        margin: 300px auto;
+        display: block;
+        width: 50px;
+        height: 50px;
+        transform: translate(-50%, 0);
+        background: url("../../images/icon_bar.png") -285px -110px;
+        animation: yanchi 0.5s infinite linear;
+    }
+    embed {
+        width: 100%;
+        height: 100%;
+    }
+    i {
+        position: absolute;
+        display: block;
+        top: 3%;
+        left: 30%;
+        font-size: 14px;
+        font-style: normal;
+        color: aqua;
+    }
+}
+
+@keyframes yanchi {
+    0% {
+        transform: translate(-50%, 0) rotate(0);
+    }
+    100% {
+        transform: translate(-50%, 0) rotate(360deg);
+    }
+}
+
+/* 尾部 */
+
+.btm {
+    width: 100%;
+    div {
+        width: 100%;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 10px 0;
+        a {
+            width: 33.33333%;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            float: left;
+            height: 34px;
+            line-height: 34px;
+            border-right: 1px solid #ccc;
+        }
+        a:last-child {
+            img {
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+            }
+            border: none;
+        }
+    }
+    p {
+        width: 100%;
+        height: 60px;
+        margin-top: 10px;
+        span {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            a {
+                display: inline;
+                color: red;
+            }
+        }
+        span:nth-child(1) {
+            padding-top: 10px;
+        }
+    }
+} 

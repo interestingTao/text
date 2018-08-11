@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>详情信息</title>
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/content.css">
+</head>
+<body>
+    <!-- 顶部 -->
+    <header>
+        <a onclick="javascript:history.back(-1);">&lt;</a>
+        <a href="javascript:;">商品详情</a>
+        <a href="http://m.manmanbuy.com/app.html?type=headword&amp;value=wap">
+            <img src="./images/header_app.png" alt="">
+        </a>
+    </header>
+    <!-- 商品详情内容 -->
+    <div class="main">
+
+    </div>
+    <!-- 底部 -->
+    <footer>
+        <div class="get">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a href="#">
+                <span class="fa fa-arrow-up"></span>
+                <span>返回顶部</span>
+            </a>
+        </div>
+        <div class="app">
+            <div class="a_phone">
+                <a href="http://m.manmanbuy.com/app.html?type=headword&amp;value=wap">手机APP下载</a>
+                <span>慢慢买手机版</span>
+                <span>-掌上比价平台</span>
+            </div>
+            <div class="a_url">m.manmanbuy.com</div>
+        </div>
+    </footer>
+</body>
+</html>
+<script src="./js/template-web.js"></script>
+<script src="./js/zepto/zepto.js"></script>
+<script src="./js/content.js"></script>
+<script type="text/html" id="temp">
+        <div class="m_title">{{data.productName}}</div>
+        <div class="m_time">
+            <span>{{data.productFrom}}</span>
+            <span>{{data.productTime}}</span>
+            <span>{{data.productTips}}</span>
+        </div>
+        <div class='m_text'>
+            <div class='m_left'>{{data.productInfo}}</div>
+           {{@data.productImgSm}}
+        </div>
+        <div class='m_big'>
+            <div>{{data.productInfo1}}</div>
+            {{@data.productImgLg}}
+        </div>
+       <div class='m_ul'> {{@data.productCity}}</div>
+        <div class='m_buy'> 前往购买</div>
+        <div class="m_stop">
+            <img src="./images/mmbweixin2.png" alt="">
+        </div>
+        <div class="m_pl">
+            {{@data.productComment}}
+        </div>
+</script>
+</script>

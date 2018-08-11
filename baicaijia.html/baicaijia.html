@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/baicai.css">
+
+</head>
+
+<body>
+    <div class="view">
+        <header>
+            <a onclick="javascript:history.back(-1);">
+                <img src="./images/back.png" class="back" alt="">
+            </a>
+            <span>白菜价-淘宝内部券</span>
+            <a href="javascript:;">
+                <img src="./images/header_app.png" class="back" alt="">
+            </a>
+        </header>
+        <nav class="nav">
+            <ul>
+                <!-- 模板  -->
+            </ul>
+        </nav>
+        <div class="goods">
+            <ul>
+                <!-- 模板  -->
+            </ul>
+            <div class="g-more">
+                <span>加载更多...</span>
+            </div>
+            <div class="top-button">
+                <a href="#">↑</a>
+            </div>
+        </div>
+        <footer>
+            <ul>
+                <li>
+                    <a href="javascript:;">登录</a>
+                </li>
+                <li>
+                    <a href="javascript:;">注册</a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>↑</span>返回顶部</a>
+                </li>
+            </ul>
+            <div class="f-bottom">
+                <span>
+                    <a href="javascript:;">手机APP下载</a>
+                    慢慢买手机版
+                </span>
+                <span>--掌上比价平台</span>
+                <p>m.manmanbuy.com</p>
+            </div>
+
+        </footer>
+    </div>
+</body>
+<script src="./js/jquery.js"></script>
+<script src="./assets/art-template/template-web.js"></script>
+<script src="./js/iscroll.js"></script>
+<script src="./js/touchEvent.js"></script>
+<script src="./js/baicai.js"></script>
+<script type="text/template" id="navTmp">
+    {{each data value index}}
+    <li id="{{value.titleId}}">
+        <a href="javascript:;">{{value.title}}</a>
+    </li>
+    {{/each}}
+</script>
+<script type="text/template" id="goodsTmp">
+    {{each data value index}}
+    <li>
+        <a href="javascript:;">
+            {{@ value.productImg}}
+        </a>
+        <div class="product">
+            {{@ value.productName}}
+
+            <div class="price">
+                {{@ value.productPrice}}
+            </div>
+            <div class="productCouponRemain">
+                {{@ value.productCouponRemain}}
+            </div>
+            <div class="productCoupon">
+                {{@ value.productCoupon }} {{@ value.productHref}}
+            </div>
+        </div>
+    </li>
+    {{/each}}
+</script>
+
+</html>

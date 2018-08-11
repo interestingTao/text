@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/getcatexq/getcatexq.css">
+</head>
+
+<body>
+
+    <!-- 头部 -->
+    <div class="header">
+        <a href="../index.html">
+            <img src="../img/header_logo.png" alt="">
+        </a>
+        <img src="../img/header_app.png" alt="">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../css/j-select.css" />
+        <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+
+    </div>
+    <!-- 搜索栏 -->
+    <div class="search">
+        <div class="inp">
+            <input type="text" placeholder="请输入你想比价的商品">
+        </div>
+        <span>搜索</span>
+    </div>
+    <!-- 三级菜单 -->
+    <div class="logo clearfix">
+        <span>
+            <a href="../index.html">首页 > </a>
+            <a class="logot" onclick="javascript:history.back(-1);"></a>
+            <a class="logol" href="javascript:;"></a>
+        </span>
+        <button>筛选</button>
+    </div>
+    <!-- 详情区域 -->
+    <div class="content">
+
+    </div>
+
+    <!-- 网友评价区 -->
+    <a href="javascript:;" class="com-t">网友评价</a>
+    <div class="comment">
+    </div>
+    <div class="com-b">
+        <a href="javascript:;">查看更多评价</a>
+    </div>
+
+
+    <!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="javascript:;">
+                <img src="../img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+
+
+    <script src="../jquery/jquery.js"></script>
+    <script src="../art-template/template-web.js"></script>
+
+</html>
+<script>
+    // 获取地址栏的参数数组
+    // console.log(getUrlParams())
+
+    function getUrlParams() {
+        var search = window.location.search;
+        // 写入数据字典
+        var tmparray = search.substr(1, search.length).split("&");
+        var paramsArray = new Array;
+        if (tmparray != null) {
+            for (var i = 0; i < tmparray.length; i++) {
+                var reg = /[=|^==]/; // 用=进行拆分，但不包括==
+                var set1 = tmparray[i].replace(reg, '&');
+                var tmpStr2 = set1.split('&');
+                var array = new Array;
+                array[tmpStr2[0]] = tmpStr2[1];
+                paramsArray.push(array);
+            }
+        }
+        // 将参数数组进行返回
+        return paramsArray;
+    }
+    //返回值是100；
+    // 根据参数名称获取参数值
+
+    function getParamValue(name) {
+        var paramsArray = getUrlParams();
+        if (paramsArray != null) {
+            for (var i = 0; i < paramsArray.length; i++) {
+                for (var j in paramsArray[i]) {
+                    if (j == name) {
+                        return paramsArray[i][j];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    console.log(getParamValue("productId"));
+    console.log(getParamValue("categoryId"));
+    var productId = getParamValue("productId");
+    var categoryId = getParamValue("categoryId");
+
+    //三级菜单第三级
+
+    $.get(
+        "http://193.112.55.79:9090/api/getproduct", {
+            "productid": productId
+        },
+        function (red) {
+            // console.log();
+            var pro = template("xqid", red)
+            $(".content").html(pro);
+            $(".logol").html(red.result[0].productName);
+        }, "json"
+    )
+
+    //三级菜单第二级
+    $.get(
+        "http://193.112.55.79:9090/api/getcategorybyid", {
+            "categoryid": categoryId
+        },
+        function (ree) {
+            console.log(ree.result[0].category);
+            $(".logot").html(ree.result[0].category + " >")
+        }, "json"
+    )
+
+
+    /* 评论 */
+    $.get(
+        "http://193.112.55.79:9090/api/getproductcom", {
+            "productid": productId
+        },
+        function (rea) {
+            console.log(rea);
+            var commentStr = template("commentId", rea);
+            $(".comment").html(commentStr);
+        }, "json"
+    )
+
+    /* 点击回到顶部 */
+    $("#headered").on("click", function () {
+        // console.log(scrollTop);
+        document.documentElement.scrollTop = 0
+    })
+</script>
+
+<!-- 模板 -->
+<script type="text/template" id="xqid">
+    {{each result value}}
+    <div class="con_t">
+        <p>{{value.productName}}</p>
+        {{@value.productImg}}
+    </div>
+    <ul class="clearfix">
+        <li>
+            <a href="javascript:;">比价购买</a>
+        </li>
+        <li>
+            <a href="javascript:;">产品参数</a>
+        </li>
+        <li>
+            <a href="javascript:;">评价(2222)</a>
+        </li>
+    </ul>
+    {{@value.bjShop}}
+    <span>
+        实际价格以各网站列出的实时售价为准,我们提供的价格可能有数小时至数日的延迟.
+    </span>
+    {{/each}}
+</script>
+
+<!-- 评论模板 -->
+<script type="text/template" id="commentId">
+    {{each result value}}
+    <div class="com_name clearfix">
+        <a href="javascript:;" class="name">{{value.comName}}</a>
+        <span class="com_time">
+            <a href="javascript:;">{{value.comTime}}</a>
+            <a href="javascript:;">{{value.comFrom}}</a>
+        </span>
+    </div>
+    <p class="com_content">{{value.comContent}}</p>
+    {{/each}}
+</script>

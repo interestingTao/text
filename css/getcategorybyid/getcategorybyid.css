@@ -1,0 +1,357 @@
+@charset "UTF-8";
+/* 头部 */
+.header {
+  width: 100%;
+  height: 48px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #ff841d;
+  padding: 10px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.header a img {
+  max-width: 185px;
+}
+
+.header > img {
+  max-width: 34px;
+  overflow: hidden;
+}
+
+/* 搜索栏 */
+.search {
+  width: 100%;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.search .inp {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  height: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.search .inp input {
+  background-color: #f1f1f1;
+  width: 100%;
+  height: 30px;
+  border-radius: 15px;
+  outline: 0;
+  border: 0;
+  padding-left: 20px;
+}
+
+.search span {
+  display: block;
+  float: right;
+  width: 63px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #ff9547;
+  color: #fff;
+  text-align: center;
+  line-height: 30px;
+}
+
+/* 尾部 */
+.btm {
+  width: 100%;
+}
+
+.btm div {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.btm div a {
+  width: 33.33333%;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  float: left;
+  height: 34px;
+  line-height: 34px;
+  border-right: 1px solid #ccc;
+}
+
+.btm div a:last-child {
+  border: none;
+}
+
+.btm div a:last-child img {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+}
+
+.btm p {
+  width: 100%;
+  height: 60px;
+  margin-top: 10px;
+}
+
+.btm p span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+}
+
+.btm p span a {
+  display: inline;
+  color: red;
+}
+
+.btm p span:nth-child(1) {
+  padding-top: 10px;
+}
+
+/* 头部菜单 */
+.logo {
+  width: 100%;
+  height: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #f1f1f1;
+  padding: 0 10px;
+  line-height: 40px;
+}
+
+.logo span {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  float: left;
+  height: 100%;
+  display: block;
+}
+
+.logo span a {
+  display: inline;
+  font-size: 14px;
+  color: #333;
+}
+
+.logo button {
+  display: block;
+  float: right;
+  width: 50px;
+  height: 25px;
+  outline: none;
+  border: 0;
+  line-height: 20px;
+  border-radius: 7px;
+  margin-top: 7px;
+}
+
+/* 商品列表 */
+.disList {
+  max-width: 880px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.disList .list {
+  width: 100%;
+  height: 140px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.disList .list > a {
+  float: left;
+  width: 110px;
+  background-color: pink;
+}
+
+.disList .list > a img {
+  height: 120px;
+}
+
+.disList .list div {
+  font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-left: 10px;
+  height: 100%;
+  -ms-flex-line-pack: justify;
+      align-content: space-between;
+  color: #333;
+}
+
+.disList .list div a:nth-child(1) span {
+  display: block;
+  color: #ff9547;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.disList .list div a:nth-child(2) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 24px;
+  font-size: 12px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  color: #666;
+}
+
+/* 分页 */
+.fenYe {
+  width: 100%;
+  height: 40px;
+  background-color: #ccc;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 10px;
+}
+
+.fenYe .lefr {
+  width: 70px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  margin-top: 7px;
+  line-height: 25px;
+  text-align: center;
+}
+
+.fenYe .left {
+  float: left;
+}
+
+.fenYe .right {
+  float: right;
+}
+
+.fenYe .form {
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+.fenYe .form .selectBox {
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.fenYe .form .selectBox .inputCase {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.fenYe .form .selectBox .inputCase .imitationSelect {
+  padding-left: 40px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ccc;
+  cursor: default;
+}
+
+.fenYe .form .selectBox .inputCase .fa {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  color: #007AFF;
+}
+
+.fenYe .form .selectBox .selectUl {
+  display: block;
+  width: 120px;
+  display: none;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  z-index: 100;
+  position: absolute;
+}
+
+.fenYe .form .selectBox .selectUl li {
+  text-align: center;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  list-style: none;
+  border-bottom: 1px solid #ccc;
+  -webkit-transition: all .5s ease 0s;
+  transition: all .5s ease 0s;
+  background-color: rgba(255, 0, 0, 0.8);
+  color: #007AFF;
+}
+
+.fenYe .form .selectBox .selectUl li:last-child {
+  border-bottom: 0;
+}
+
+/* 加载 */
+.yanchi {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  display: none;
+  text-align: center;
+  background: url("../../images/2345_image_file_copy_8.jpg");
+  background-size: 100% 100%;
+}
+
+.yanchi span {
+  margin: 300px auto;
+  display: block;
+  width: 50px;
+  height: 50px;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  background: url("../../images/icon_bar.png") -285px -110px;
+  -webkit-animation: yanchi 0.5s infinite linear;
+          animation: yanchi 0.5s infinite linear;
+}
+
+.yanchi embed {
+  width: 100%;
+  height: 100%;
+}
+
+.yanchi i {
+  position: absolute;
+  display: block;
+  top: 3%;
+  left: 30%;
+  font-size: 14px;
+  font-style: normal;
+  color: aqua;
+}
+/*# sourceMappingURL=getcategorybyid.css.map */

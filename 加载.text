@@ -1,0 +1,146 @@
+html:
+
+<!-- 加载 -->
+    <p class="yanchi">
+        <embed style="display:none" src="./img/201108060855006874.gif" autostart="true" starttime="00:08">
+        </embed>
+        <i>加载中，客官请稍等.......</i>
+        <span></span>
+    </p>
+
+
+
+css:
+
+.yanchi {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    background: url("../../images/2345_image_file_copy_8.jpg");
+    background-size: 100% 100%;
+    span {
+        margin: 300px auto;
+        display: block;
+        width: 50px;
+        height: 50px;
+        transform: translate(-50%, 0);
+        background: url("../../images/icon_bar.png") -285px -110px;
+        animation: yanchi 0.5s infinite linear;
+    }
+    embed {
+        width: 100%;
+        height: 100%;
+    }
+    i {
+        position: absolute;
+        display: block;
+        top: 3%;
+        left: 30%;
+        font-size: 14px;
+        font-style: normal;
+        color: aqua;
+    }
+}
+
+
+js:
+
+ $(".yanchi").show();
+            $(".yanchi embed").show();
+            setTimeout(function () {
+                $(".yanchi").hide();
+                window.location.href = "./zhekou.html?productId=" + _this;
+            }, 2000)
+
+
+
+
+
+
+
+
+
+
+<!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="javascript:;">
+                <img src="../img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+
+回到顶部js代码:
+
+css:
+/* 尾部 */
+
+.btm {
+    width: 100%;
+    div {
+        width: 100%;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        margin: 10px 0;
+        a {
+            width: 33.33333%;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            float: left;
+            height: 34px;
+            line-height: 34px;
+            border-right: 1px solid #ccc;
+        }
+        a:last-child {
+            img {
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+            }
+            border: none;
+        }
+    }
+    p {
+        width: 100%;
+        height: 60px;
+        margin-top: 10px;
+        span {
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            a {
+                display: inline;
+                color: red;
+            }
+        }
+        span:nth-child(1) {
+            padding-top: 10px;
+        }
+    }
+}
+
+js:
+
+    /* 点击回到顶部 */
+    $("#headered").on("click", function () {
+        // console.log(scrollTop);
+        document.documentElement.scrollTop = 0
+    })

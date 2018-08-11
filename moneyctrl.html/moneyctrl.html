@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>最新优惠</title>
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <!-- <p class="yanchi">
+                <embed style="display:none" src="./img/201108060855006874.gif" autostart="true" starttime="00:08">
+                </embed>
+                <i>加载中，客官请稍等.......</i>
+                <span></span>
+            </p> -->
+
+    <!-- 顶部 -->
+    <header>
+        <a onclick="javascript:history.back(-1);">&lt;</a>
+        <a href="javascript:;">省钱控-最新优惠</a>
+        <a href="http://m.manmanbuy.com/app.html?type=headword&amp;value=wap" onclick="trackEvent('header下载');">
+            <img src="./images/header_app.png" alt="">
+        </a>
+    </header>
+    <!-- 中间内容 -->
+    <div class="view clearfix">
+        <ul class="v_ul ">
+            <!-- <li>
+                <a href="javascript:;">
+                    <div class="picture">
+                        <img src="./images/1.jpg" alt="">
+                    </div>
+                    <div class="main">
+                        <div class="m_up">
+                            移动端凑单品:海天 鲜味 生抽1.28L
+                            <span class="mey">10.9元</span>
+                        </div>
+                        <div class="m_down">
+                            <span>京东商城| 10-25 14:10</span>
+                            <span class="fa fa-commenting-o">1</span>
+                        </div>
+                    </div>
+                </a>
+            </li> -->
+        </ul>
+    </div>
+    <!-- 分页 -->
+
+    <div class="paging">
+        <button class="btn_1">上一页</button>
+        <div class="form">
+            <div class="selectBox">
+                <div class="inputCase">
+                    <input class="imitationSelect" type="text" value="" readonly/>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+                <ul class="selectUl">
+                </ul>
+            </div>
+        </div>
+        <button class="btn_2">下一页</button>
+    </div>
+    <!-- 底部 -->
+    <footer>
+        <div class="get">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a href="#">
+                <span class="fa fa-arrow-up"></span>
+                <span>返回顶部</span>
+            </a>
+        </div>
+        <div class="app">
+            <div class="a_phone">
+                <a href="http://m.manmanbuy.com/app.html?type=headword&amp;value=wap">手机APP下载</a>
+                <span>慢慢买手机版</span>
+                <span>-掌上比价平台</span>
+            </div>
+            <div class="a_url">m.manmanbuy.com</div>
+        </div>
+        <!-- <div class="btm">
+                <div class="clearfix">
+                    <a href="javascript:;">登录</a>
+                    <a href="javascript:;">注册</a>
+                    <a id="headered" class="headered" href="javascript:;">
+                        <img src="../img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+                </div>
+                <p>
+                    <span>
+                        <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+                    </span>
+                    <span>
+                        m.manmanbuy.com
+                    </span>
+                </p>
+            </div> -->
+    </footer>
+</body>
+
+<script src="../jquery/jquery.js"></script>
+<script src="../js/nicescroll/jquery-nicescroll.js"></script>
+<!-- 使用了nicescroll插件美化下拉框的滚动条 -->
+<script src="../js/jquery-jSelect.min.js"></script>
+<!-- <script src="./js/zepto/zepto.js"></script> -->
+<!-- <script src="./js/jquery-1.12.2.js"></script> -->
+<script src="./js/template-web.js"></script>
+<script src="./js/index.js"></script>
+
+<script type="text/hehe" id="temp">
+
+    {{ each data val }}
+    <li>
+        <a href="./content.html?productId={{val.productId}}">
+            <div class="picture">
+                {{@ val.productImg2 }}
+            </div>
+            <div class="main">
+                <div class="m_up">
+                    {{ val.productName }}
+                    <span class="mey">{{ val.productPinkage }}</span>
+                </div>
+                <div class="m_down">
+                    <span>{{val.productFrom }} | {{ val.productTime }}</span>
+                    <span class="fa fa-commenting-o">{{ val.productComCount }}</span>
+                </div>
+            </div>
+        </a>
+    </li>
+    {{ /each }} 
+</script>
+
+</html>

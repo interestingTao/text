@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/inlanddiscount/inlanddiscount.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html">&lt;</a>
+        <a href="javascript:;">国内折扣</a>
+        <a href="javascript:;">
+            <img src="../img/header_app.png" alt="">
+        </a>
+
+    </header>
+    <div id="wrapper" class="product">
+        <ul class=" clearfix">
+
+        </ul>
+        <div class="progress">
+            <a href="../index.html">首页 ></a>
+            <a href="javascript:;">国内折扣</a>
+        </div>
+    </div>
+    <!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="javascript:void(0);">
+                <img src="../img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+
+    <!-- 加载 -->
+    <p class="yanchi">
+        <embed style="display:none" src="../img/201108060855006874.gif" autostart="true" starttime="00:08">
+        </embed>
+        <i>加载中，客官请稍等.......</i>
+        <span></span>
+    </p>
+</body>
+
+</html>
+<script src="../jquery/jquery.js"></script>
+<script src="../js/iscroll.js"></script>
+<script src="../art-template/template-web.js"></script>
+<script>
+    $(function () {
+        // console.log($(window).scrollTop());
+        /* 渲染数据 */
+        $.ajax({
+            "type": "get",
+            "url": "http://193.112.55.79:9090/api/getinlanddiscount",
+            "success": function (red) {
+                // console.log(red);
+                var productHtml = template("shopId", red);
+                $(".product ul").html(productHtml);
+                // console.log(red);
+
+                //var myScroll = new IScroll('#wrapper');
+            }
+        })
+
+        $(".product").on("click", "li", function () {
+            //获取点击的元素ID
+            var _this = $(this).children("a").eq(4).html();
+            // console.log(_this);
+            $(".yanchi").show();
+            $(".yanchi embed").show();
+            setTimeout(function () {
+                $(".yanchi").hide();
+                window.location.href = "../zhekou.html?productId=" + _this;
+            }, 2000)
+        })
+    })
+
+    /* 滑轮滚到到底部加载更多 */
+    var finished = true;
+
+    var index = 0;
+
+    // scrollTOp 兼容性的写法 
+    var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+
+    window.onscroll = function () {
+        if (finished == true) {
+
+            var a = $(window).scrollTop() + $(window).height();
+            console.log(a);
+            var b = $(document).height();
+
+            console.log(b);
+            if (b - a <= 200) {
+                finished = false;
+                toggle();
+                index++;
+            }
+        }
+    }
+
+    function toggle() {
+        $(".yanchi").show();
+        setTimeout(function () {
+            $(".yanchi").hide();
+            $.get(
+                "http://193.112.55.79:9090/api/getmoneyctrl", {
+                    "pageid": index
+                },
+                function (res) {
+                    console.log(res);
+                    var productHtml = template("shopingId", res);
+                    $(".product ul").append(productHtml);
+                    finished = true;
+                }, "json"
+            );
+        }, 2000)
+    }
+
+    /* 点击回到顶部 */
+    $("#headered").on("click",function () {
+        document.documentElement.scrollTop = 0
+    })
+</script>
+
+
+
+
+<!-- 模板 -->
+<script type="text/template" id="shopId">
+    {{each result value}}
+    <li>
+        <a href="javascript:;">
+            {{@value.productImg}}
+        </a>
+        <a href="javascript:;">
+            {{value.productName}}
+        </a>
+        <a href="javascript:;">
+            {{value.productPrice}}
+        </a>
+        <a href="javascript:;">
+            <span>{{value.productFrom}}</span> |
+            <span>{{value.productTime}}</span>
+        </a>
+        <a style="display:none" href="javascript:;">{{value.productId}}</a>
+    </li>
+    {{/each}}
+</script>
+
+
+<!-- 模板B -->
+<script type="text/template" id="shopingId">
+    {{each result value}}
+    <li>
+        <a href="javascript:;">
+            {{@value.productImgSm}}
+        </a>
+        <a href="javascript:;">
+            {{value.productName}}
+        </a>
+        <a href="javascript:;">
+            {{value.productPinkage}}
+        </a>
+        <a href="javascript:;">
+            <span>{{value.productFrom}}</span> |
+            <span>{{value.productTime}}</span>
+        </a>
+        <a style="display:none" href="javascript:;">{{value.productId}}</a>
+    </li>
+    {{/each}}
+</script>

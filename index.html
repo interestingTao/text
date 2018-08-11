@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/common.css">
+</head>
+
+<body>
+    <iframe src="./api/aside.html" width="100%" ; height="94px" frameborder="0" scrolling="no" name="headFrame"></iframe>
+    <!-- 菜单栏 -->
+    <div class="menu">
+    </div>
+    <!-- 折扣列表 -->
+    <a class="list-top" href="javascript:;">
+        <span>超值折扣推荐</span>
+        <img src="./img/more.png" alt="">
+    </a>
+    <div class="disList"></div>
+    <!-- 底部 -->
+    <div class="list-btm">
+        <a class="list_b" href="javascript:;">
+            <span>更多优惠信息 >></span>
+        </a>
+        <a class="list-top" href="javascript:;">
+            <span>品牌排行</span>
+            <img src="./img/more.png" alt="">
+        </a>
+    </div>
+
+    <!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="javascript:void(0);">
+                <img src="./img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+
+    <!-- 加载 -->
+    <p class="yanchi">
+        <embed style="display:none" src="./img/201108060855006874.gif" autostart="true" starttime="00:08">
+        </embed>
+        <i>加载中，客官请稍等.......</i>
+        <span></span>
+    </p>
+</body>
+<script src="./jquery/jquery.js"></script>
+<script src="./art-template/template-web.js"></script>
+
+</html>
+
+<script>
+    $(function () {
+        /* 菜单栏 */
+        $.ajax({
+            "type": "get",
+            "url": "http://193.112.55.79:9090/api/getindexmenu",
+            "dataType": "json",
+            "success": function (res) {
+
+                console.log(res);
+                var htmlStr = template("templaeId", res);
+                // console.log(htmlStr);
+                $(".menu").html(htmlStr);
+                // console.log($(".menu a"));
+                var menu_a = ($(".menu a"));
+                $.each($(".menu span"), function (index, value) {
+                    // console.log(index);
+                    var val = $(".menu span")[index];
+
+                    // console.log(val);
+                })
+                // console.log($(".menu a").eq(7));
+                menu_a.on("click", function () {
+                    var _this = $(this);
+                    var index = _this.index();
+                    // console.log(index);
+                    if (index == 7) {
+                        return false;
+                    }
+                    var titlehref = _this.children("span").html();
+                    $(".yanchi").show();
+                    $(".yanchi embed").show();
+                    setTimeout(function () {
+                        $(".yanchi").hide();
+                        window.location.href = "./" + titlehref + "/" + titlehref;
+                    }, 2000)
+                })
+                menu_a.eq(7).on("click", function () {
+                    // console.log(123);
+                    var _this = $(this);
+                    setTimeout(function () {
+                        _this.nextAll().toggle();
+                    }, 500)
+                })
+            }
+        })
+
+        /* 商品页 */
+        $.ajax({
+            "type": "get",
+            "url": "http://193.112.55.79:9090/api/getmoneyctrl",
+            "dataType": "json",
+            "success": function (red) {
+                // console.log(red);
+                var htmlStr = template("disListId", red);
+                $(".disList").html(htmlStr);
+                $(".list").on("click", function () {
+                    //获取点击的元素ID
+                    var _this = $(this).children("i").html();
+                    // console.log(_this);
+                    $(".yanchi").show();
+                    $(".yanchi embed").show();
+                    setTimeout(function () {
+                        $(".yanchi").hide();
+                        window.location.href = "./zhekou.html?productId=" + _this;
+                    }, 5000)
+                })
+            }
+        })
+        /* 点击回到顶部 */
+        $("#headered").on("click", function () {
+            // console.log(scrollTop);
+            document.documentElement.scrollTop = 0
+        })
+    })
+    $(".list-top,list_b").on("click", function () {
+        //获取点击的元素ID
+        var _this = $(this).html();
+        // console.log(_this);
+        $(".yanchi").show();
+        $(".yanchi embed").show();
+        setTimeout(function () {
+            $(".yanchi").hide();
+            window.location.href = "./moneyctrl.html/moneyctrl.html"
+        }, 5000)
+    })
+</script>
+
+<!-- 菜单栏 -->
+<script type="text/template" id="templaeId">
+    {{ each result value }}
+    <a href="javascript:;">
+        {{@value.img}}
+        <p>{{value.name}}</p>
+        <span style="display:none">{{value.titlehref}}</span>
+    </a>
+    {{ /each }}
+</script>
+<!-- 折扣列表 -->
+<script type="text/template" id="disListId">
+    {{ each result value }}
+    <div class="list">
+        <a href="javascript:;">
+            {{@value.productImgSm}}
+        </a>
+        <div>
+            <a class="shop">{{value.productName}}
+                <span>{{value.productPinkage}}</span>
+            </a>
+            <a href="javascript:;">
+                <span>{{ value.productFrom }}|{{value.productTime}}</span>
+                <span>{{ value.productComCount }}</span>
+            </a>
+        </div>
+        <i style="display:none;">{{value.productId}}</i>
+    </div>
+    {{ /each }}
+</script>

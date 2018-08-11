@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/getcategorybyid/getcategorybyid.css">
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+
+<body>
+
+    <!-- 头部 -->
+    <div class="header">
+        <a href="../index.html">
+            <img src="../img/header_logo.png" alt="">
+        </a>
+        <img src="../img/header_app.png" alt="">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../css/j-select.css" />
+        <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+
+    </div>
+    <!-- 搜索栏 -->
+    <div class="search">
+        <div class="inp">
+            <input type="text" placeholder="请输入你想比价的商品">
+        </div>
+        <span>搜索</span>
+    </div>
+    <!-- 三级菜单 -->
+    <div class="logo clearfix">
+        <span>
+            <a href="../index.html">首页 > </a>
+            <a href="../category.html/category.html">全部分类 ></a>
+            <a class="logol" href="javascript:;"></a>
+        </span>
+        <button>筛选</button>
+    </div>
+    <!-- 商品列表 -->
+    <div class="disList"></div>
+    <!-- 分页 -->
+    <div class="fenYe clearfix">
+        <div class="lefr left">上一页</div>
+        <div class="form">
+            <div class="selectBox">
+                <div class="inputCase">
+                    <input class="imitationSelect" type="text" value="" readonly/>
+                    <i class="fa fa-caret-down"></i>
+                </div>
+                <ul class="selectUl">
+                </ul>
+            </div>
+        </div>
+        <div class="lefr right">下一页</div>
+    </div>
+
+    <!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="javascript:;">
+                <img src="../img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+
+    <!-- 加载 -->
+    <p class="yanchi">
+        <embed style="display:none" src="../img/201108060855006874.gif" autostart="true" starttime="00:08">
+        </embed>
+        <i>加载中，客官请稍等.......</i>
+        <span></span>
+    </p>
+</body>
+
+</html>
+<script src="../jquery/jquery.js"></script>
+<script src="../js/nicescroll/jquery-nicescroll.js"></script>
+<!-- 使用了nicescroll插件美化下拉框的滚动条 -->
+<script src="../js/jquery-jSelect.min.js"></script>
+<script src="../art-template/template-web.js"></script>
+<script>
+    $(function () {
+        var productId = window.location.search.slice(12);
+        console.log(productId);
+        $.get(
+            "http://193.112.55.79:9090/api/getcategorybyid", {
+                "categoryid": productId
+            },
+            function (ree) {
+                // console.log(ree);
+
+                var strss = template("disListId", {
+                    data: ree.result
+                })
+
+                $(".logo span").children().last().html(strss)
+            }, "json"
+        )
+        //商品列表
+        var totalCount = 0;
+        var pagenum = 1;
+        page();
+        //封装请求数据
+        function page() {
+            $.ajax({
+                type: "get",
+                url: "http://193.112.55.79:9090/api/getproductlist",
+                data: {
+                    "categoryid": productId,
+                    "pageid": pagenum
+                },
+                dataType: "json",
+                success: function (ref) {
+                    console.log(ref);
+                    var categstr = template("categid", ref);
+                    $(".disList").html(categstr);
+
+                    var total = ref.totalCount / 10;
+                    var pgd = ref.pageid;
+                    //分页
+                    totalCount = Math.ceil(total);
+                    var optHtml = "";
+                    for (var i = 1; i <= totalCount; i++) {
+                        optHtml += "<li oliName=" + i + "/" + totalCount + " oliId=" + i + " >" + i +
+                            "/" +
+                            totalCount +
+                            "</li>";
+                    }
+                    $(".imitationSelect").val(pagenum + "/" + totalCount);
+                    console.log(optHtml);
+                    $(".selectUl").html(optHtml);
+
+                }
+            })
+        }
+        select()
+
+        function select() {
+            $(document).click(function (event) {
+                var targetDom = event.target;
+
+
+                if ($(targetDom).hasClass("selectBox") || $(targetDom).parents(".selectBox").length !=
+                    0) {
+                    var _that = $(this).find(".imitationSelect");
+                    $(_that).parent().next().toggle(); //ul弹窗展开
+                    $(_that).next().toggleClass("fa-caret-up") //点击input选择适合，
+                } else {
+                    $(".inputCase .fa").removeClass("fa-caret-up").addClass("fa-caret-down")
+                    $(".selectUl").hide();
+                }
+                if ($(targetDom).attr("oliname")) {
+                    console.log(123);
+                    $(targetDom).addClass("actived_li").siblings().removeClass("actived_li"); //点击当前的添加。actived_li这个类；其他的移除这个类名
+                    var oliName = $(targetDom).html(); //定义一个name属性，获取点击的元素属性赋值到当前，方便动态化传值
+                    var oliId = !$(targetDom).attr("oliId") || $(targetDom); //定义一个id属性，获取点击的元素属性赋值到当前，方便动态化传值
+                    console.log(oliName);
+                    $(targetDom).parent().prev().children().val(oliName); //把当前点击的name赋值到显示的input的val里面
+                    pagenum = $(targetDom).attr("oliId");
+                    page();
+                }
+            });
+        }
+        $(".left").on("click", function () {
+            //判断页数是否第一页，是的话返回不执行
+            if (pagenum <= 1) {
+                // console.log(pagenum);
+                return false;
+            }
+            console.log(pagenum);
+            pagenum--;
+            // 重新请求并渲染数据
+            page();
+        })
+        $(".right").on("click", function () {
+
+            //判断页数是否最后一页，是的话返回不执行
+            // console.log(totalCount)
+            if (pagenum >= totalCount) {
+                return false;
+            }
+            pagenum++;
+            console.log(pagenum);
+            page();
+        })
+
+        $(".disList").on("click", ".list", function () {
+            var listId = $(this).children("i").html();
+            var gory = $(".logol").children("b").html()
+            console.log(gory);
+            console.log(listId);
+            $(".yanchi").show();
+            $(".yanchi embed").show();
+            setTimeout(function () {
+                $(".yanchi").hide();
+                window.location.href = "./getcatexq.html?productId=" + listId + "&categoryId=" +
+                    gory;
+            }, 2000)
+        })
+    })
+    /* 点击回到顶部 */
+    $("#headered").on("click", function () {
+        // console.log(scrollTop);
+        document.documentElement.scrollTop = 0
+    })
+</script>
+
+<script type="text/template" id="disListId">
+    {{each data value}}
+    <b style="display:none">{{value.categoryId}}</b>
+    {{value.category}} > {{/each}}
+
+</script>
+
+<!-- 商品区域模板 -->
+
+<script type="text/template" id="categid">
+    {{ each result value }}
+    <div class="list">
+        <a href="javascript:;">
+            {{@value.productImg}}
+        </a>
+        <div>
+            <a class="shop">
+                {{value.productName}}
+                <span>{{value.productPrice}}</span>
+            </a>
+            <a href="javascript:;">
+                <span>{{ value.productQuote }}|{{value.productCom}}</span>
+            </a>
+        </div>
+        <i style="display:none;">{{value.productId}}</i>
+    </div>
+    {{ /each }}
+</script>

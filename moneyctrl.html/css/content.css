@@ -1,0 +1,278 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+.clearfix::after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+
+header {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50px;
+  background-color: #ff841d;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+header a:nth-child(1) {
+  background-origin: content-box;
+  background-clip: content-box;
+  width: 50px;
+  height: 55%;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  -webkit-transform: scale(1, 2);
+          transform: scale(1, 2);
+}
+
+header a:nth-child(2) {
+  font-size: 22px;
+  color: #fff;
+}
+
+header a:nth-child(3) img {
+  width: 50%;
+}
+
+footer {
+  background-color: #efefef;
+}
+
+footer .get {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  border-top: 1px solid #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
+}
+
+footer .get a {
+  padding: 15px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  color: #000;
+}
+
+footer .get a:nth-child(-n+2) {
+  border-right: 1px solid #c8c8c8;
+}
+
+footer .app {
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer .app .a_phone a {
+  color: #fe0909;
+  padding-right: 10px;
+}
+
+footer .app .a_phone span:nth-child(3) {
+  color: #656565;
+  padding-left: 5px;
+}
+
+footer .app div {
+  color: #656565;
+}
+
+.main {
+  padding: 0 10px;
+  padding-bottom: 30px;
+}
+
+.main .m_title {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  color: #666;
+  font-weight: 600;
+}
+
+.main .m_time {
+  font-size: 12px;
+  color: #ccc;
+  padding-bottom: 10px;
+}
+
+.main .m_text {
+  font-size: 14px;
+  color: #646464;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main .m_text img {
+  width: 35%;
+  height: 25%;
+}
+
+.main .m_text .m_right {
+  float: right;
+}
+
+.main .m_big {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.main .m_big div:nth-child(1) {
+  padding-bottom: 20px;
+  font-size: 14px;
+  color: #646464;
+}
+
+.main .m_ul {
+  width: 100px;
+  margin: 0 auto;
+  text-align: center;
+  -webkit-box-shadow: 1px 0px 6px 5px #ccc;
+          box-shadow: 1px 0px 6px 5px #ccc;
+}
+
+.main .m_ul a {
+  border-bottom: 1px dashed #000;
+  padding-left: 10px;
+}
+
+.main .m_ul a span {
+  font-size: 12px;
+}
+
+.main .m_ul a strong {
+  padding-left: 30px;
+  font-size: 12px;
+  color: #f28644;
+  font-weight: normal;
+}
+
+.main .m_ul li:nth-child(4) strong {
+  padding-left: 20px;
+}
+
+.main .m_ul li:nth-child(10) strong {
+  padding-left: 20px;
+}
+
+.main .m_ul li:nth-child(12) strong {
+  padding-left: 20px;
+}
+
+.main .m_buy {
+  background-color: #ff9000;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.main .m_stop {
+  padding-bottom: 20px;
+}
+
+.main .m_pl .reply #ctl00_ContentBody_txt_nr {
+  width: 100%;
+  height: 100px;
+}
+
+.main .m_pl .reply .form {
+  position: relative;
+}
+
+.main .m_pl .reply .form .ctrl {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  background-color: #ff841d;
+  outline: none;
+}
+
+.main .m_pl .list {
+  width: 100%;
+}
+
+.main .m_pl .list li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.main .m_pl .list li .userimg {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.main .m_pl .list li .con {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding-left: 15px;
+}
+
+.main .m_pl .list li .con .content img {
+  width: 25px;
+}
+
+.main .m_pl .list li .con .username {
+  font-size: 12px;
+  color: #80b0cf;
+  float: left;
+  padding-bottom: 5px;
+}
+
+.main .m_pl .list li .con .time {
+  color: #666;
+  font-size: 12px;
+  float: right;
+}
+
+.main .m_pl #newcomment {
+  font-size: 16px;
+  color: #000000;
+  padding: 5px 0;
+}
+
+.main .ui-border-b {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+/*# sourceMappingURL=content.css.map */

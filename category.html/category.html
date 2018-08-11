@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/categoru/category.css">
+</head>
+
+<body>
+
+    <!-- 头部 -->
+    <div class="header">
+        <a href="../index.html">
+            <img src="../img/header_logo.png" alt="">
+        </a>
+        <img src="../img/header_app.png" alt="">
+    </div>
+    <!-- 搜索栏 -->
+    <div class="search">
+        <div class="inp">
+            <input type="text" placeholder="请输入你想比价的商品">
+        </div>
+        <span>搜索</span>
+    </div>
+
+    <!-- 分类列表 -->
+    <div class="cate">
+        <div class="category">
+        </div>
+    </div>
+
+
+    <!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="javascript:;">
+                <img src="../img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+</body>
+
+</html>
+<script src="../jquery/jquery.js"></script>
+<script src="../js/iscroll.js"></script>
+<script src="../art-template/template-web.js"></script>
+<script>
+    $(function () {
+        /* 发送Ajax请求获取标题信息 */
+        $.get(
+            "http://193.112.55.79:9090/api/getcategorytitle",
+            function (res) {
+                // console.log(res);
+                var titleStr = template("cateId", {
+                    data: res.result
+                });
+                // console.log(titleStr);
+                $(".category").html(titleStr);
+            }, "json"
+        )
+        /* 点击标题，获取分类 */
+        $(".category").on("click", ".categoryer", function () {
+
+            var _this = $(this);
+            _this.siblings("span").children("b").removeClass("active");
+            _this.next().siblings("ul").hide(500);
+            // console.log(123);
+            var id = _this.prev().html();
+            // console.log(id);
+            _this.children("b").toggleClass("active");
+            $.get(
+                "http://193.112.55.79:9090/api/getcategory", {
+                    "titleid": id
+                },
+                function (red) {
+                    // console.log(red);
+                    var titStr = template("titId", {
+                        data: red.result
+                    });
+                    // console.log(titStr);
+                    _this.next().html(titStr);
+                    _this.next().toggle(500);
+                }
+            )
+        })
+        /* 点击回到顶部 */
+        $("#headered").on("click", function () {
+            document.documentElement.scrollTop = 0;
+        })
+        
+        /* 点击分类跳转 */ 
+        $(".category").on("click", "li", function () {
+            // console.log(555)
+            var _this = $(this);
+            _this.css("backgroundColor","red").siblings().css("backgroundColor","");
+            var categoryId = _this.children("span").html();
+            // console.log(categoryId);
+            window.location.href = "../api/getcategorybyid.html?categoryid="+categoryId;
+        })
+    })
+</script>
+
+
+
+
+<!-- 分类标题模板 -->
+<script type="text/template" id="cateId">
+    {{each data value}}
+    <i style="display: none">{{value.titleId}}</i>
+    <span class="categoryer">{{value.title}}
+        <b>&gt;</b>
+    </span>
+    <ul class="clearfix"></ul>
+    {{/each}}
+</script>
+
+<!-- 小分类模板 -->
+<script type="text/template" id="titId">
+    {{each data value}}
+    <li>
+        {{value.category}}
+        <span style="display:none">{{value.categoryId}}</span>
+    </li>
+    {{/each}}
+</script>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/sitenav/sitenav.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 头部 -->
+    <div class="header">
+        <a href="../index.html">
+            <img src="../img/header_logo.png" alt="">
+        </a>
+        <img src="../img/header_app.png" alt="">
+    </div>
+
+    <!-- 导航区 -->
+    <div class="logo_nav">
+        <ul class="clearfix">
+
+        </ul>
+    </div>
+    <!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="#">
+                <img src="../img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+</body>
+<script src="../jquery/jquery.js"></script>
+<script src="../art-template/template-web.js"></script>
+
+</html>
+
+<script>
+    $.ajax({
+        type: "get",
+        url: "http://193.112.55.79:9090/api/getsitenav",
+        success: function (red) {
+            console.log(red);
+            var temHtml = template("navId", red);
+            $(".logo_nav ul").html(temHtml);
+            //随机数
+            $.each($(".logo_nav li"), function (index, value) {
+                var randomDeg = parseInt(Math.random() * 360); //随机角度
+                var randomX = parseInt(Math.random() * 1366) - 683; //随机X坐标
+                var randomY = parseInt(Math.random() * 900) - 450; //随机Y坐标
+                // console.log("下标:" + index + "值:" + value);
+                $(".logo_nav li").eq(index).css({
+                    transform: "translate(" + randomX + "px," + randomY + "px) rotate(" +
+                        randomDeg +
+                        "deg)"
+                })
+            })
+            setTimeout(function () {
+                $(".logo_nav li").css({
+                    transform: "translate(" + 0 + "," + 0 + ")",
+                    transition: "transform 1s"
+                })
+            }, 500)
+        }
+    })
+</script>
+
+
+
+
+
+
+<!-- 模板 -->
+<script type="text/template" id="navId">
+    {{each result value}}
+    <li>
+        <a href="{{value.navHref}}">
+            <img src="{{value.navImg}}" alt="">
+            <span>{{value.navTitle}}</span>
+        </a>
+    </li>
+    {{/each}}
+</script>

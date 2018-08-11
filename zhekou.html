@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/zhekou/zhekou.css">
+    <link rel="stylesheet" href="./css/common.css">
+</head>
+
+<body>
+    <header>
+        <a onclick="javascript:history.back(-1);">&lt;</a>
+        <a href="javascript:;">国内折扣</a>
+        <a href="javascript:;">
+            <img src="./img/header_app.png" alt="">
+        </a>
+    </header>
+    <div class="contents">
+    </div>
+    <!-- 尾部 -->
+    <div class="btm">
+        <div class="clearfix">
+            <a href="javascript:;">登录</a>
+            <a href="javascript:;">注册</a>
+            <a id="headered" class="headered" href="javascript:void(0);">
+                <img src="./img/top.jpg" width="15" height="15" alt="">返回顶部</a>
+        </div>
+        <p>
+            <span>
+                <a href="javascript:;">手机APP下载</a> 慢慢买手机版 --掌上比价平台
+            </span>
+            <span>
+                m.manmanbuy.com
+            </span>
+        </p>
+    </div>
+
+    <!-- 提示框 -->
+    <div class="tiShi ">
+        <span>温馨提示</span>
+        <span>评论发表成功！获得15点活跃积分...</span>
+    </div>
+</body>
+
+</html>
+<script src="./jquery/jquery.js"></script>
+<script src="./art-template/template-web.js"></script>
+<script>
+    $(function () {
+
+        //获取id参数
+        var productId = window.location.search.slice(11);
+        // console.log(productId);
+
+        /* 折扣请求数据 */
+        $.get(
+            "http://193.112.55.79:9090/api/getdiscountproduct", {
+                "productid": productId
+            },
+            function (res) {
+                console.log(res);
+                renderData();
+                var tem = template("titleId", res);
+                $(".contents").append(tem);
+                $(".title").addClass("clearfix")
+            }, "json")
+
+        /* 首页请求数据 */
+        $.get(
+            "http://193.112.55.79:9090/api/getmoneyctrlproduct", {
+                "productid": productId
+            },
+            function (red) {
+                console.log(red);
+                renderData();
+                var tem = template("titId", red);
+                // console.log(tem);
+                $(".contents").append(tem);
+            }, "json")
+
+        /* 发表评论 */
+        // 事件委托
+        $(".contents").on("click", "#ctl00_ContentBody_Button1", function () {
+            var val = $("textarea").val().trim();
+            // console.log(texthtml)
+            if (val == "") {
+                console.log(123);
+                return false;
+            };
+
+            // 3 获取本地存储中的数据 数组 [] | 真正的数组
+            // 获取已经存在的数据 => 数组
+            var arr = localStorage.getItem("goods") ? JSON.parse(localStorage.getItem("goods")) : [];
+
+            //3.5 先判断以前有没有数据 有存在 删除掉以前的数据 
+            for (var i = 0; i < arr.length; i++) {
+                var element = arr[i];
+                // 判断数组中是否存在有相同的数据
+                if (element == val) {
+                    // 删除
+                    // arr.splice(要删除数据的索引,要删除几个)
+                    arr.splice(i, 1);
+                }
+            }
+
+            // 4 把值插入到数组中
+            // unshift()把数据插入到数组的头部里 
+            arr.unshift(val);
+
+            // 5 转类型
+            var jsonArr = JSON.stringify(arr);
+
+            // 6 存入到本地存储中
+            localStorage.setItem("goods", jsonArr);
+
+            // 7 马上更新数据
+            renderData()
+            $(".tiShi").css({
+                opacity: 1,
+                transition: "opacity 1s"
+            })
+            setTimeout(function () {
+                $(".tiShi").css({
+                    opacity: 0,
+                    transition: "opacity 1s"
+                })
+            }, 2000)
+        })
+        //获取当前时间
+        function p(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        var myDate = new Date();
+        //获取当前年
+        var year = myDate.getFullYear();
+        //获取当前月
+        var month = myDate.getMonth() + 1;
+        //获取当前日
+        var date = myDate.getDate();
+        var h = myDate.getHours(); //获取当前小时数(0-23)
+        var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+        var s = myDate.getSeconds();
+
+        var now = year + '-' + p(month) + "-" + p(date) + " " + p(h) + ':' + p(m) + ":" + p(s);
+        // console.log(now);
+        function renderData() {
+            /* 
+            1 获取本地存储中的数据
+            2 循环 
+                动态拼接 li标签
+            3 把html字符串渲染到ul标签里面!!! 
+             */
+            // 1
+            var arr = localStorage.getItem("goods") ? JSON.parse(localStorage.getItem("goods")) : [];
+
+            // 2 循环
+            var htmlStr = "";
+            for (var i = 0; i < arr.length; i++) {
+                // 每一个要渲染的数据选项
+                var data = arr[0];
+                var htmlStr = "<li>" + "<div class = 'userimg'>" +
+                    "<img src='./img/3-1FQ5154432.jpg'>" +
+                    "</div>" +
+                    "<div class='con'>" +
+                    "<div class='name clearfix'>" +
+                    "<div class= 'username'>" + "社会我进哥" + "</div>" + "<div class='time'>" + now +
+                    "</div>" +
+                    "</div>" +
+                    "<div class='content'>" + data + "</div>" +
+                    "</div>" + "</li>";
+            }
+            // 3 拼接结束了
+            $(".list ul").prepend(htmlStr);
+            $("textarea").val("");
+        }
+    })
+</script>
+
+
+<!-- 折扣跳转模板 -->
+<script type="text/template" id="titleId">
+    {{each result value}}
+    <div class="con_top">
+        <h3>{{value.productName }}</h3>
+        <span>{{value.productPrice}}</span>
+        <a class="con-t" href="javascript:;">
+            <span>{{value.productFrom}}</span>
+            <span>{{value.productTime}}</span>
+            <span>{{value.productTips}}</span>
+        </a>
+        <div class="title">
+            <p>{{value.productInfo}}</p>
+            {{@value.productImg}}
+        </div>
+        <a class="goBuy" href="javascript:;">前往购买</a>
+    </div>
+    {{@value.productComment}}
+    <div class="progress">
+        <a href="./index.html">首页 ></a>
+        <a href="./moneyctrl.html">省钱控 ></a>
+        <a href="javascript:;">{{value.productName }}</a>
+    </div>
+    {{/each}}
+</script>
+
+<!-- 首页跳转模板 -->
+<script type="text/template" id="titId">
+    {{each result value}}
+    <div class="con_top">
+        <h3>{{value.productName }}</h3>
+        <span>{{value.productPinkage}}</span>
+        <a class="con-t" href="javascript:;">
+            <span>{{value.productFrom}}</span>
+            <span>{{value.productTime}}</span>
+            <span>{{value.productTips}}</span>
+        </a>
+        <div class="title clearfix">
+            <p>{{value.productInfo2}}</p>
+            {{@value.productImgSm}}
+        </div>
+        {{@value.productImgSm}}
+        <a class="goBuy" href="javascript:;">前往购买</a>
+    </div>
+    {{@value.productComment}}
+    <div class="progress">
+        <a href="./index.html">首页 ></a>
+        <a href="./moneyctrl.html">省钱控 ></a>
+        <a href="javascript:;">{{value.productName }}</a>
+    </div>
+    {{/each}}
+</script>
